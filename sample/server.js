@@ -1,4 +1,5 @@
 var ioreq = require("../");
+// var ioreq = require("socket.io-request");
 
 var io = require("socket.io")(3000);
 

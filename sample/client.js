@@ -1,4 +1,5 @@
 var ioreq = require("../");
+// var ioreq = require("socket.io-request");
 
 var io = require("socket.io-client")("http://localhost:3000");
 
