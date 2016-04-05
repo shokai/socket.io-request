@@ -36,5 +36,16 @@
   },
   "dependencies": {
     "md5": "^2.1.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shokai/socket.io-request.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shokai/socket.io-request/issues"
+  },
+  "homepage": "https://github.com/shokai/socket.io-request#readme"
 }
