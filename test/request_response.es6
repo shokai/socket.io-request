@@ -6,7 +6,7 @@ import {delay} from "./helper";
 import Server from "socket.io";
 import Client from "socket.io-client";
 
-import SocketIORequest from "../src/";
+import SocketIORequest from "../";
 
 const port = (process.env.PORT || 3000) - 0;
 const server = Server(port);
@@ -35,7 +35,7 @@ describe("request from Client to Server", function(){
 
 describe("request from Server to Client", function(){
 
-  it("should respond sum", function(done){
+  it("should respond sum of array", function(done){
     const client = Client(`http://localhost:${port}`);
     client.once("connect", function(){
       const reqres = new SocketIORequest(client);
