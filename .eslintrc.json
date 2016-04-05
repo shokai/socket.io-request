@@ -1,0 +1,22 @@
+{
+  "extends": ["eslint:recommended"],
+  "parser": "babel-eslint",
+  "env":{
+    "node": true,
+    "browser": false
+  },
+  "plugins":[
+  ],
+  "rules":{
+    "strict": [2, "global"],
+    "new-cap": 0,
+    "comma-spacing": [2, {"before": false, "after": true}],
+    "no-unused-vars": [1, {"args": "none"}],
+    "no-constant-condition": 0,
+    "no-shadow": 0,
+    "no-loop-func": 0,
+    "curly": 0,
+    "no-constant-condition": 1,
+    "no-console": 1
+  }
+}

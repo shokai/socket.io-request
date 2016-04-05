@@ -1,0 +1,40 @@
+{
+  "name": "socket.io-request",
+  "version": "0.0.1",
+  "description": "bidirectional request-response for socket.io",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run eslint && npm run mocha",
+    "mocha": "mocha test/*.es6 --compilers js:babel-register",
+    "eslint": "eslint src/{*,**/*}.es6",
+    "build": "babel src/ --out-dir lib/ --source-maps inline",
+    "watch": "parallelshell 'chokidar \"*/**.{es6}\" -c \"npm run test\"' 'npm run build -- --watch'",
+    "clean": "rm -rf lib/*"
+  },
+  "keywords": [
+    "socket.io",
+    "reqres",
+    "request",
+    "response"
+  ],
+  "author": "Sho Hashimoto <hashimoto@shokai.org>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-eslint": "^6.0.2",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
+    "chokidar-cli": "^1.2.0",
+    "eslint": "^2.7.0",
+    "mocha": "^2.4.5",
+    "parallelshell": "^2.0.0",
+    "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5"
+  },
+  "dependencies": {
+    "md5": "^2.1.0"
+  }
+}
