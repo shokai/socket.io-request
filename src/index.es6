@@ -2,7 +2,11 @@
 
 import md5 from "md5";
 
-export default class SocketIORequest{
+module.exports = function(io){
+  return new SocketIORequest(io);
+}
+
+class SocketIORequest{
 
   constructor(io){
     this.io = io;
