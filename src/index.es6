@@ -19,17 +19,28 @@ class SocketIORequest{
   request(method, data){
     if(typeof method !== "string") throw new Error('argument "method" is missing');
     const id = md5(this.io.id + Date.now() + Math.random());
+
     const promise = new Promise((resolve, reject) => {
       this.io.once(`${this.options.event}:${id}`, (data) => {
         clearTimeout(timeout);
+        this.io.removeListener("disconnect", onDisconnect);
         resolve(data);
       });
 
       const timeout = setTimeout(() => {
         this.io.removeAllListeners(`${this.options.event}:${id}`);
+        this.io.removeListener("disconnect", onDisconnect);
         reject("timeout");
       }, this.options.timeout);
+
+      const onDisconnect = () => {
+        clearTimeout(timeout);
+        this.io.removeAllListeners(`${this.options.event}:${id}`);
+        reject("disconnect");
+      };
+      this.io.once("disconnect", onDisconnect);
     });
+
     this.io.emit(this.options.event, {id, method, data});
     return promise;
   }
