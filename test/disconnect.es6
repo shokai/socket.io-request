@@ -19,7 +19,6 @@ describe("handling disconnect error", function(){
       server.on("connection", (socket) => {
         ioreq(socket).response("disconnect", (req, res) => {
           socket.disconnect();
-          res("done");
         })
       });
 
@@ -38,6 +37,35 @@ describe("handling disconnect error", function(){
       });
 
     });
+  });
+
+
+  describe("client disconnect", function(){
+
+    it("should throw error", function(){
+
+      const client = Client(`http://localhost:${port}`);
+      client.once("connect", () => {
+        ioreq(client).response("disconnect", (req, res) => {
+          client.disconnect();
+        });
+      });
+
+      server.on("connection", async (socket) => {
+        var err, res;
+        try{
+          res = await ioreq(socket).request("disconnect");
+        }
+        catch(_err){
+          err = _err;
+        }
+        assert.isUndefined(res);
+        assert.equal(err, "disconnect");
+        done();
+      });
+
+    });
+
   });
 
 });
