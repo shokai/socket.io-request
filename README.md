@@ -85,6 +85,18 @@ io.on("connection", function(socket){ // new client
 ```
 
 
+### Options
+
+```javascript
+var options = {
+  event: "socket.io-request", // event name on socket.io
+  timeout: 90000              // request timeout (msec)
+};
+
+ioreq(io, options).request("foo");
+```
+
+
 ## Samples
 
 in `./sample` directory.
