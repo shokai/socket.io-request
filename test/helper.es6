@@ -9,7 +9,9 @@ export function delay(msec){
   });
 }
 
+export const port = (process.env.PORT || 3000) - 0;
+
 var server = null;
 export function Server(){
-  return server || (server = SocketIO(process.env.PORT || 3000));
+  return server || (server = SocketIO(port));
 }

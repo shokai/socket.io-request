@@ -1,13 +1,12 @@
 /* global describe it */
 
 import {assert} from "chai";
-import {Server, delay} from "./helper";
+import {Server, port, delay} from "./helper";
 
 import Client from "socket.io-client";
 
 import ioreq from "../";
 
-const port = (process.env.PORT || 3000) - 0;
 const server = Server();
 
 describe("timeout option", function(){
