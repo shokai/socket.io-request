@@ -21,23 +21,25 @@ class SocketIORequest{
     const id = md5(this.io.id + Date.now() + Math.random());
 
     const promise = new Promise((resolve, reject) => {
-      this.io.once(`${this.options.event}:${id}`, (data) => {
+      const onResponse = (data) => {
         clearTimeout(timeout);
         this.io.removeListener("disconnect", onDisconnect);
         resolve(data);
-      });
+      };
+
+      const onDisconnect = () => {
+        clearTimeout(timeout);
+        this.io.removeListener(`${this.options.event}:${id}`, onResponse);
+        reject("disconnect");
+      };
 
       const timeout = setTimeout(() => {
-        this.io.removeAllListeners(`${this.options.event}:${id}`);
+        this.io.removeListener(`${this.options.event}:${id}`, onResponse);
         this.io.removeListener("disconnect", onDisconnect);
         reject("timeout");
       }, this.options.timeout);
 
-      const onDisconnect = () => {
-        clearTimeout(timeout);
-        this.io.removeAllListeners(`${this.options.event}:${id}`);
-        reject("disconnect");
-      };
+      this.io.once(`${this.options.event}:${id}`, onResponse);
       this.io.once("disconnect", onDisconnect);
     });
 
