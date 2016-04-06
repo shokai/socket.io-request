@@ -1,15 +1,14 @@
 /* global describe it */
 
 import {assert} from "chai";
-import {delay} from "./helper";
+import {Server, delay} from "./helper";
 
-import Server from "socket.io";
 import Client from "socket.io-client";
 
 import ioreq from "../";
 
 const port = (process.env.PORT || 3000) - 0;
-const server = Server(port);
+const server = Server();
 
 describe("request from Client to Server", function(){
 

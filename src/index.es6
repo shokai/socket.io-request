@@ -10,18 +10,25 @@ class SocketIORequest{
 
   constructor(io, options = {}){
     this.io = io;
-    this.options = Object.assign(options, {
-      event: "socket.io-request"
-    });
+    this.options = Object.assign({
+      event: "socket.io-request",
+      timeout: 90000
+    }, options);
   }
 
   request(method, data){
     if(typeof method !== "string") throw new Error('argument "method" is missing');
     const id = md5(this.io.id + Date.now() + Math.random());
-    const promise = new Promise((resolve) => {
+    const promise = new Promise((resolve, reject) => {
       this.io.once(`${this.options.event}:${id}`, (data) => {
+        clearTimeout(timeout);
         resolve(data);
       });
+
+      const timeout = setTimeout(() => {
+        this.io.removeAllListeners(`${this.options.event}:${id}`);
+        reject("timeout");
+      }, this.options.timeout);
     });
     this.io.emit(this.options.event, {id, method, data});
     return promise;
@@ -30,10 +37,10 @@ class SocketIORequest{
   response(method, callback){
     if(typeof method !== "string") throw new Error('argument "method" is missing');
     if(typeof callback !== "function") throw new Error('"callback" must be a function');
-    this.io.on(this.options.event, (data) => {
-      if(data.method !== method) return;
-      callback(data.data, (res) => {
-        this.io.emit(`${this.options.event}:${data.id}`, res);
+    this.io.on(this.options.event, (req) => {
+      if(req.method !== method) return;
+      callback(req.data, (res) => {
+        this.io.emit(`${this.options.event}:${req.id}`, res);
       });
     });
   }
