@@ -12,23 +12,15 @@ bidirectional request-response for socket.io
 
     % npm install socket.io-request -save
 
+## Methods
+
+- `request("method", data)` return `Promise`
+- `response("method", handler)`
+
 
 ## Usage
 
 ### request from Client to Server
-
-server
-
-```javascript
-var ioreq = require("socket.io-request");
-var io = require("socket.io")(3000);
-
-io.on("connection", function(socket){ // new client
-  ioreq(socket).response("toUpper", function(req, res){
-    res(req.toUpperCase());
-  });
-});
-```
 
 client
 
@@ -37,7 +29,7 @@ var ioreq = require("socket.io-request");
 var io = require("socket.io-client")("http://localhost:3000");
 
 io.on("connect", function(){
-  ioreq(io).request("toUpper", "hello world")
+  ioreq(io).request("toUpper", "hello world") // method, data
     .then(function(res){
       console.log(res); // get "HELLO WORLD"
     })
@@ -47,7 +39,35 @@ io.on("connect", function(){
 });
 ```
 
+server
+
+```javascript
+var ioreq = require("socket.io-request");
+var io = require("socket.io")(3000);
+
+io.on("connection", function(socket){ // new client
+  ioreq(socket).response("toUpper", function(req, res){ // method, handler
+    res(req.toUpperCase()); // return to client
+  });
+});
+```
+
+
 ### request from Server to Client
+
+server
+
+```javascript
+var ioreq = require("socket.io-request");
+var io = require("socket.io")(3000);
+
+io.on("connection", function(socket){ // new client
+  ioreq(io).request("windowSize")
+    .then(function(res){
+      console.log(res); // get {height: 528, width: 924}
+    });
+});
+```
 
 client (web browser)
 
@@ -60,27 +80,8 @@ io.on("connect", function(){
     res({
       height: window.innerHeight,
       width: window.innerWidth
-    });
+    }); // return to server
   });
-});
-```
-
-server
-
-```javascript
-var ioreq = require("socket.io-request");
-var io = require("socket.io")(3000);
-
-io.on("connection", function(socket){ // new client
-
-  ioreq(io).request("windowSize")
-    .then(function(res){
-      console.log(res); // get {height: 528, width: 924}
-    })
-    .catch(function(err){
-      console.error(err.stack || err);
-    });
-
 });
 ```
 
