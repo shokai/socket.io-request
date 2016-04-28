@@ -3,12 +3,14 @@
   "parser": "babel-eslint",
   "env":{
     "node": true,
-    "browser": false
+    "browser": true,
+    "es6": true
   },
   "plugins":[
   ],
   "rules":{
     "strict": [2, "global"],
+    "semi": 2,
     "new-cap": 0,
     "comma-spacing": [2, {"before": false, "after": true}],
     "no-unused-vars": [1, {"args": "none"}],

@@ -1,10 +1,8 @@
-/* global Promise */
-
 import md5 from "md5";
 
 module.exports = function(io, options){
   return new SocketIORequest(io, options);
-}
+};
 
 class SocketIORequest{
 

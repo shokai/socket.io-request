@@ -1,5 +1,3 @@
-/* global Promise */
-
 import "babel-polyfill";
 import SocketIO from "socket.io";
 
