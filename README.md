@@ -7,6 +7,14 @@ bidirectional request-response for socket.io
 
 [![Circle CI](https://circleci.com/gh/shokai/socket.io-request.svg?style=svg)](https://circleci.com/gh/shokai/socket.io-request)
 
+## Feature
+Of cource, Socket.IO's `emit` and `on` have request-response. This library adds some features.
+
+- Promise interface
+- Exception handling
+  - timeout
+  - disconnect
+
 
 ## Install
 
@@ -95,6 +103,16 @@ var options = {
 };
 
 ioreq(io, options).request("foo");
+```
+
+## Async-Await
+
+Using [async-await syntax](https://github.com/tc39/ecmascript-asyncawait), you can write like below.
+
+```javascript
+async () => {
+  const res = await ioreq(io).request("hello");
+};
 ```
 
 
