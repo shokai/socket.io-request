@@ -1,7 +1,7 @@
-/* global describe it */
+/* eslint-env mocha */
 
 import {assert} from "chai";
-import {Server, port, delay} from "./helper";
+import {Server, port} from "./helper";
 
 import Client from "socket.io-client";
 
@@ -18,7 +18,7 @@ describe("handling disconnect error", function(){
       server.on("connection", (socket) => {
         ioreq(socket).response("disconnect", (req, res) => {
           socket.disconnect();
-        })
+        });
       });
 
       const client = Client(`http://localhost:${port}`);
@@ -41,7 +41,7 @@ describe("handling disconnect error", function(){
 
   describe("client disconnect", function(){
 
-    it("should throw error", function(){
+    it("should throw error", function(done){
 
       const client = Client(`http://localhost:${port}`);
       client.once("connect", () => {

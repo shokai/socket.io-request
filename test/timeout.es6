@@ -1,4 +1,4 @@
-/* global describe it */
+/* eslint-env mocha */
 
 import {assert} from "chai";
 import {Server, port, delay} from "./helper";
@@ -17,7 +17,7 @@ describe("timeout option", function(){
       ioreq(socket).response("timeout", async (req, res) => {
         await delay(1500);
         res("done");
-      })
+      });
     });
 
     const client = Client(`http://localhost:${port}`);

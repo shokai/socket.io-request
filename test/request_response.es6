@@ -1,7 +1,7 @@
-/* global describe it */
+/* eslint-env mocha */
 
 import {assert} from "chai";
-import {Server, port, delay} from "./helper";
+import {Server, port} from "./helper";
 
 import Client from "socket.io-client";
 
@@ -17,7 +17,7 @@ describe("request-response", function(){
       server.on("connection", (socket) => {
         ioreq(socket).response("toUpper", (req, res) => {
           res(req.str.toUpperCase());
-        })
+        });
       });
 
       const client = Client(`http://localhost:${port}`);
@@ -37,7 +37,7 @@ describe("request-response", function(){
       const client = Client(`http://localhost:${port}`);
       client.once("connect", function(){
         ioreq(client).response("sum", (req, res) => {
-          res(req.reduce((a,b) => a+b));
+          res(req.reduce((a, b) => a+b));
         });
       });
 
