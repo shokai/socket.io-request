@@ -31,7 +31,8 @@ describe("handling disconnect error", function(){
           err = _err;
         }
         assert.isUndefined(res);
-        assert.equal(err, "disconnect");
+        assert.equal(err.name, "Socket.IO Error");
+        assert.equal(err.message, "disconnect");
         done();
       });
 
@@ -59,7 +60,8 @@ describe("handling disconnect error", function(){
           err = _err;
         }
         assert.isUndefined(res);
-        assert.equal(err, "disconnect");
+        assert.equal(err.name, "Socket.IO Error");
+        assert.equal(err.message, "disconnect");
         done();
       });
 

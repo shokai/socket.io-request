@@ -8,7 +8,7 @@ io.on("connect", function(){
 
   process.stdin.on("data", function(data){
 
-    ioreq(io).request("toUpper", data.toString())
+    ioreq(io).request("toUpper", data.toString().trim())
       .then(function(res){
         console.log(res);
       })

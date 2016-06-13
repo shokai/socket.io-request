@@ -22,7 +22,7 @@ describe("timeout option", function(){
 
     const client = Client(`http://localhost:${port}`);
     client.once("connect", async () => {
-      var err, res;
+      let err, res;
       try{
         res = await ioreq(client, {timeout: 1000}).request("timeout");
       }
@@ -30,7 +30,7 @@ describe("timeout option", function(){
         err = _err;
       }
       assert.isUndefined(res);
-      assert.equal(err, "timeout");
+      assert.equal(err.name, "TimeoutError");
       done();
     });
 

@@ -1,3 +1,5 @@
+import {convertErrorToObject, TimeoutError, SocketIOError} from './error';
+
 module.exports = function(io, options){
   return new SocketIORequest(io, options);
 };
@@ -19,17 +21,18 @@ class SocketIORequest{
       this.io.emit(this.options.event, {method, data}, (res) => {
         clearTimeout(timeout);
         this.io.removeListener("disconnect", onDisconnect);
-        resolve(res);
+        if(res.error) return reject(res.error);
+        resolve(res.data);
       });
 
       const onDisconnect = () => {
         clearTimeout(timeout);
-        reject("disconnect");
+        reject(new SocketIOError("disconnect"));
       };
 
       const timeout = setTimeout(() => {
         this.io.removeListener("disconnect", onDisconnect);
-        reject("timeout");
+        reject(new TimeoutError(`exceeded ${this.options.timeout} (msec)`));
       }, this.options.timeout);
 
       this.io.once("disconnect", onDisconnect);
@@ -41,7 +44,13 @@ class SocketIORequest{
     if(typeof callback !== "function") throw new Error('"callback" must be a function');
     this.io.on(this.options.event, (req, ack) => {
       if(req.method !== method) return;
-      callback(req.data, ack);
+      const res = function(data){
+        ack({data});
+      };
+      res.error = function(err){
+        ack({error: convertErrorToObject(err)});
+      };
+      callback(req.data, res);
     });
   }
 

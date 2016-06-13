@@ -12,8 +12,8 @@ Of cource, Socket.IO's `emit` and `on` have request-response. This library adds 
 
 - Promise interface
 - Exception handling
-  - timeout
-  - disconnect
+  - `timeout`
+  - `disconnect`
 
 
 ## Install
@@ -91,6 +91,27 @@ io.on("connect", function(){
     }); // return to server
   });
 });
+```
+
+### Error handling
+
+`res.error` returns error object to requester.
+
+```javascript
+ioreq(io).response("foo", function(req, res){
+  if(typeof req !== "string") return res.error(new Error("request is not String"));
+  res("foo!" + req);
+});
+```
+
+```javascript
+ioreq(io).request("foo", 123)
+  .then(function(res){
+    console.log(res);
+  })
+  .catch(function(err){
+    console.error(err); // =>  "[Error: request is not String]"
+  });
 ```
 
 
