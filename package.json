@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run eslint && npm run mocha",
     "mocha": "mocha test/*.es6 --compilers js:babel-register",
-    "eslint": "eslint src/{*,**/*}.es6",
+    "eslint": "eslint {src,test}/{*,**/*}.es6",
     "build": "babel src/ --out-dir lib/ --source-maps inline",
     "watch": "parallelshell 'chokidar \"*/**.{es6}\" -c \"npm run eslint\"' 'npm run build -- --watch'",
     "clean": "rm -rf lib/*"
