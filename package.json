@@ -4,7 +4,7 @@
   "description": "bidirectional request-response for socket.io",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run eslint && npm run mocha",
+    "test": "npm run mocha && npm run eslint",
     "mocha": "mocha test/*.es6 --compilers js:babel-register",
     "eslint": "eslint {src,test}/{*,**/*}.es6",
     "build": "babel src/ --out-dir lib/ --source-maps inline",
