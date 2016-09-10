@@ -1,4 +1,4 @@
-import {convertErrorToObject, TimeoutError, SocketIOError} from './error';
+import {convertErrorToObject, convertObjectToError, TimeoutError, SocketIOError} from './error';
 
 module.exports = function(io, options){
   return new SocketIORequest(io, options);
@@ -21,7 +21,7 @@ class SocketIORequest{
       this.io.emit(this.options.event, {method, data}, (res) => {
         clearTimeout(timeout);
         this.io.removeListener("disconnect", onDisconnect);
-        if(res.error) return reject(res.error);
+        if(res.error) return reject(convertObjectToError(res.error));
         resolve(res.data);
       });
 
