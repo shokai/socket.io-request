@@ -1,6 +1,6 @@
 {
   "name": "socket.io-request",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "bidirectional request-response for socket.io",
   "main": "lib/index.js",
   "scripts": {
