@@ -54,13 +54,13 @@ describe("convertObjectToErrot", function () {
 
   it("convert Error in nested Object", function () {
     const objs = convertErrorToObject({ foo: new Error('this is error'), bar: new Error('barbar') });
-    const errs = convertObjectToError(objs)
+    const errs = convertObjectToError(objs);
     assert.equal(errs.foo.name, 'Error');
     assert.equal(errs.foo.message, 'this is error');
     assert.instanceOf(errs.foo, Error);
     assert.equal(errs.bar.name, 'Error');
     assert.equal(errs.bar.message, 'barbar');
-    assert.instanceOf(errs.bar, Error)
+    assert.instanceOf(errs.bar, Error);
   });
 
 });
