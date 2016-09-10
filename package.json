@@ -34,7 +34,10 @@
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5"
   },
-  "dependencies": {},
+  "dependencies": {
+    "deserialize-error": "0.0.1",
+    "serialize-error": "^2.0.0"
+  },
   "directories": {
     "test": "test"
   },

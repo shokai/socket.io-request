@@ -1,9 +1,10 @@
+import serializeError from 'serialize-error';
+// import deserializeError from 'deserialize-error'
 
 // convert (nested) Error object to Plain object to send via socket.io
 export function convertErrorToObject (err) {
   if(err instanceof Error){
-    let obj = {name: err.name, message: err.message};
-    return Object.assign(obj, err);
+    return serializeError(err);
   }
   if(err instanceof Array){
     return err = err.map(convertErrorToObject);
