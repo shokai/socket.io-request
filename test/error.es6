@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-import {convertErrorToObject} from '../src/error';
+import {convertErrorToObject, convertObjectToError} from '../src/error';
 import {assert} from 'chai';
 
 describe("convertErrotToOjbect", function () {
@@ -30,6 +30,37 @@ describe("convertErrotToOjbect", function () {
     assert.equal(objs.bar.name, 'Error');
     assert.equal(objs.bar.message, 'barbar');
     assert.isObject(objs.bar);
+  });
+
+});
+
+describe("convertObjectToErrot", function () {
+
+  it("convert Object to Error", function () {
+    const obj = convertErrorToObject(new Error('this is error'));
+    const err = convertObjectToError(obj);
+    assert.equal(err.name, 'Error');
+    assert.equal(err.message, 'this is error');
+    assert.instanceOf(err, Error);
+  });
+
+  it("convert Error in Array", function () {
+    const objs = convertErrorToObject([ new Error('this is error') ]);
+    const errs = convertObjectToError(objs);
+    assert.equal(errs[0].name, 'Error');
+    assert.equal(errs[0].message, 'this is error');
+    assert.instanceOf(errs[0], Error);
+  });
+
+  it("convert Error in nested Object", function () {
+    const objs = convertErrorToObject({ foo: new Error('this is error'), bar: new Error('barbar') });
+    const errs = convertObjectToError(objs)
+    assert.equal(errs.foo.name, 'Error');
+    assert.equal(errs.foo.message, 'this is error');
+    assert.instanceOf(errs.foo, Error);
+    assert.equal(errs.bar.name, 'Error');
+    assert.equal(errs.bar.message, 'barbar');
+    assert.instanceOf(errs.bar, Error)
   });
 
 });
