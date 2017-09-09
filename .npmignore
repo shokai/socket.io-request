@@ -2,6 +2,7 @@ src/
 test/
 samples/
 tmp/
+package-lock.json
 circle.yml
 .babelrc
 .eslintrc.json
