@@ -1,10 +1,6 @@
 import SocketIO from 'socket.io'
 
-export function delay (msec) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, msec)
-  })
-}
+export const delay = (msec) => new Promise(resolve => setTimeout(resolve, msec))
 
 export const port = (process.env.PORT || 3000) - 0
 

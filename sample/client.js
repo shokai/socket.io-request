@@ -1,18 +1,18 @@
 var ioreq = require('../')
-// var ioreq = require("socket.io-request");
+// var ioreq = require('socket.io-request')
 
 var io = require('socket.io-client')('http://localhost:3000')
 
-io.on('connect', function () {
-  console.log('connect!')
+io.on('connect', () => console.log('connect!'))
+io.on('disconnect', () => console.log('disconnect!'))
 
-  process.stdin.on('data', function (data) {
-    ioreq(io).request('toUpper', data.toString().trim())
-      .then(function (res) {
-        console.log(res)
-      })
-      .catch(function (err) {
-        console.error(err.stack || err)
-      })
+io.once('connect', function () {
+  process.stdin.on('data', async function (data) {
+    try {
+      const res = await ioreq(io).request('toUpper', data.toString().trim())
+      console.log(res)
+    } catch (err) {
+      console.error(err.stack || err)
+    }
   })
 })
