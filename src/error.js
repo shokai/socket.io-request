@@ -1,14 +1,19 @@
 import serializeError from 'serialize-error'
 import deserializeError from 'deserialize-error'
 
+function serializeErrorWithoutStack (err) {
+  delete err.stack
+  return serializeError(err)
+}
+
 // convert (nested) Error object to Plain object to send via socket.io
 export function convertErrorToObject (err) {
-  if (err instanceof Error) return serializeError(err)
-  if (err instanceof Array) return err.map(serializeError)
+  if (err instanceof Error) return serializeErrorWithoutStack(err)
+  if (err instanceof Array) return err.map(serializeErrorWithoutStack)
   let obj = {}
   for (let k in err) {
     if (err.hasOwnProperty(k)) {
-      obj[k] = serializeError(err[k])
+      obj[k] = serializeErrorWithoutStack(err[k])
     }
   }
   return obj

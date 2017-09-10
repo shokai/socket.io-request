@@ -9,6 +9,7 @@ describe('convertErrotToOjbect', function () {
     const obj = convertErrorToObject(err)
     assert.equal(obj.name, 'Error')
     assert.equal(obj.message, 'this is error')
+    assert.isUndefined(obj.stack)
     assert.isObject(obj)
   })
 
@@ -17,6 +18,7 @@ describe('convertErrotToOjbect', function () {
     const objs = convertErrorToObject(errs)
     assert.equal(objs[0].name, 'Error')
     assert.equal(objs[0].message, 'this is error')
+    assert.isUndefined(objs[0].stack)
     assert.isObject(objs[0])
   })
 
@@ -25,9 +27,11 @@ describe('convertErrotToOjbect', function () {
     const objs = convertErrorToObject(errs)
     assert.equal(objs.foo.name, 'Error')
     assert.equal(objs.foo.message, 'this is error')
+    assert.isUndefined(objs.foo.stack)
     assert.isObject(objs.foo)
     assert.equal(objs.bar.name, 'Error')
     assert.equal(objs.bar.message, 'barbar')
+    assert.isUndefined(objs.bar.stack)
     assert.isObject(objs.bar)
   })
 })

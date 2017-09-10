@@ -29,7 +29,6 @@ describe('req.error(err)', function () {
       assert.instanceOf(err, Error)
       assert.equal(err.name, 'Error')
       assert.equal(err.message, 'something wrong')
-      assert.isString(err.stack)
     })
   })
 
@@ -52,7 +51,6 @@ describe('req.error(err)', function () {
       assert.instanceOf(errs.foo, Error)
       assert.equal(errs.foo.name, 'Error')
       assert.equal(errs.foo.message, 'something wrong')
-      assert.isString(errs.foo.stack)
     })
   })
 
