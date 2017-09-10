@@ -4,6 +4,9 @@ module.exports = function (io, options) {
   return new SocketIORequest(io, options)
 }
 
+module.exports.TimeoutError = TimeoutError
+module.exports.SocketIOError = SocketIOError
+
 class SocketIORequest {
   constructor (io, options = {}) {
     this.io = io
