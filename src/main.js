@@ -40,11 +40,12 @@ export default class SocketIORequest {
     if (middlewares.find(m => typeof m !== 'function')) {
       throw new Error('"middlewares" must be a function')
     }
+    const combined = combineMiddlewares(...middlewares.concat())
     this.io.on(this.options.event, (req, ack) => {
       if (req.method !== method) return
       const res = data => ack({data})
       res.error = err => ack({error: convertErrorToObject(err)})
-      combineMiddlewares(...middlewares)(req.data, res)
+      combined(req.data, res)
     })
   }
 }

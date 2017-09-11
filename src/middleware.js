@@ -1,5 +1,5 @@
 export const combineMiddlewares = (...middlewares) => (...args) => {
-  middlewares = middlewares.concat(() => {})
-  const next = () => middlewares.shift()(...args, next)
+  const chain = middlewares.concat(() => {})
+  const next = () => chain.shift()(...args, next)
   return next()
 }
