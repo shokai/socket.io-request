@@ -33,6 +33,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "combine-middlewares": "0.0.2",
     "deserialize-error": "^0.0.3",
     "serialize-error": "^2.0.0"
   },

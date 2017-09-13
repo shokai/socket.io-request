@@ -1,5 +1,5 @@
 import {convertErrorToObject, convertObjectToError, TimeoutError, SocketIOError} from './error'
-import {combineMiddlewares} from './middleware'
+import combineMiddlewares from 'combine-middlewares'
 
 export default class SocketIORequest {
   constructor (io, options = {}) {
