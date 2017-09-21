@@ -4,10 +4,10 @@
   "description": "bidirectional request-response for socket.io",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/run-s test:*",
-    "test:mocha": "./node_modules/.bin/mocha test/*.js -r babel-polyfill --compilers js:babel-register",
-    "test:standard": "./node_modules/.bin/standard",
-    "build": "./node_modules/.bin/babel src/ --out-dir lib/ --source-maps inline",
+    "test": "run-s test:*",
+    "test:mocha": "mocha test/*.js -r babel-polyfill --compilers js:babel-register",
+    "test:standard": "standard",
+    "build": "babel src/ --out-dir lib/ --source-maps inline",
     "watch": "npm run build -- --watch",
     "clean": "rm -rf lib/*"
   },
