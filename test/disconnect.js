@@ -5,7 +5,7 @@ import {Server, port} from './helper'
 
 import Client from 'socket.io-client'
 
-import ioreq from '../src/'
+import ioreq, {SocketIOError} from '../src/'
 
 const server = Server()
 
@@ -27,7 +27,7 @@ describe('handling disconnect error', function () {
           err = _err
         }
         assert.isUndefined(res)
-        assert.equal(err.name, 'Socket.IO Error')
+        assert.equal(err.name, SocketIOError.name)
         assert.equal(err.message, 'disconnect')
         done()
       })
@@ -51,7 +51,7 @@ describe('handling disconnect error', function () {
           err = _err
         }
         assert.isUndefined(res)
-        assert.equal(err.name, 'Socket.IO Error')
+        assert.equal(err.name, SocketIOError.name)
         assert.equal(err.message, 'disconnect')
         done()
       })

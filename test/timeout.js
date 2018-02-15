@@ -5,7 +5,7 @@ import {Server, port, delay} from './helper'
 
 import Client from 'socket.io-client'
 
-import ioreq from '../src/'
+import ioreq, {TimeoutError} from '../src/'
 
 const server = Server()
 
@@ -28,7 +28,7 @@ describe('timeout option', function () {
         err = _err
       }
       assert.isUndefined(res)
-      assert.equal(err.name, 'TimeoutError')
+      assert.equal(err.name, TimeoutError.name)
       done()
     })
   })

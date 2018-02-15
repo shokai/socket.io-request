@@ -43,6 +43,6 @@ export class TimeoutError extends Error {
 export class SocketIOError extends Error {
   constructor (message) {
     super(message)
-    this.name = 'Socket.IO Error'
+    this.name = 'SocketIOError'
   }
 }
