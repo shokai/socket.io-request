@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.4.0
+    working_directory: ~/app
+    steps:
+      - run: 'node -v'
+      - run: 'npm -v'
+      - checkout
+      - run: 'npm ci'
+      - run: 'npm run build'
+      - run:
+          command: 'npm run test:standard'
+          when: always
+      - run:
+          command: 'npm run test:mocha'
+          when: always
